@@ -12,7 +12,7 @@ def findMultInv(a, mod):
         quotient = modCheckVal / a
         if not (quotient % 1):
             found = 1
-            print("***Multiplicative inverse of %s is %d***" % (a, quotient % mod))
+            #print("***Multiplicative inverse of %s is %d***" % (a, quotient % mod))
             return int(quotient % 26)
         else:
             modCheckVal += mod

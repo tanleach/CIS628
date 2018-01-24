@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from __future__ import division
+import numberLib as nl
 
 _alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
@@ -43,13 +44,14 @@ def affineCipherDecrypt(cipher, a, b, mod, space=0):
     plainText = ""
     count = 1
     for l in cipher:
-        print
         if l == " ":
             plainText += l
             continue
         
         #This is where the magic happens
-        plain = (ord(l) - 65) * a + b
+        a_inv = nl.findMultInv(a,mod)
+        plain = ((ord(l) - 65) - b)
+        plain = plain * a_inv
         plainLetter = int(plain % 26)
         
         plainText += chr(plainLetter + 65)
