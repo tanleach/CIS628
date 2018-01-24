@@ -50,7 +50,7 @@ def affineCipherDecrypt(cipher, a, b, mod, space=0):
         
         #This is where the magic happens
         plain = (ord(l) - 65) * a + b
-        plainLetter = plain % 26
+        plainLetter = int(plain % 26)
         
         plainText += chr(plainLetter + 65)
 

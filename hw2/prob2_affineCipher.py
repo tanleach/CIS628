@@ -6,7 +6,7 @@ import numberLib as nl
 #Note, capital letters are ASCII vals 0-26 + 65
 _cipherText = "FPFKR NEHAF LJHZH KRPHY EVURH HDVSF MHAFL JYRVY MR"
 _mod = 26
-_L1 = "T"
+_L1 = "L"
 _L2 = "E"
 
 def run(_cipher, _mod, _L1, _L2):
@@ -83,17 +83,25 @@ def run(_cipher, _mod, _L1, _L2):
         diff = diff % _mod
 
     print("\t%2s * temp     = %2s (mod %s)" % (temp , diff, _mod))
+    if not ((diff/temp) % 1):
+        temp = diff/temp
+        a = int(temp)
 
-    print();print("(Its Euclid time!!!!!!! Only I was cheap and made my own, less efficient way. O(n))")
-    a = nl.findMultInv(temp,_mod)
-    if a == -1:
-        print("FAILURE.  MULTIPLICATIVE INVESE NOT FOUND")
-        exit(-9)
+    else:
+        print();print("(Its Euclid time!!!!!!! Only I was cheap and made my own, less efficient way. O(n))")
+        a = nl.findMultInv(int(temp),_mod)
+        if a == -1:
+            print("FAILURE.  MULTIPLICATIVE INVERSE NOT FOUND")
+            exit(-9)
+
     print("\ta = %s" % a)
-
-    b = ord("E") - 65 - a
+    
+    print("%s - %s * %s" % ((ord(encrypted2) - 65), (ord(_L2) - 65), a))
+    
+    b = (ord(encrypted2) - 65) - ((ord(_L2) - 65) * a)
     if b < 0:
         b = b % _mod
+
     print("\tb = %s" % b)
 
     print("====================")
