@@ -41,6 +41,8 @@ def shiftCipherDecrypt(cipher, offset, space=0):
     return plainText
     
 def affineCipherDecrypt(cipher, a, b, mod, space=0):
+    
+    a_inv = nl.findMultInv(a, mod)
     plainText = ""
     count = 1
     for l in cipher:
@@ -48,19 +50,15 @@ def affineCipherDecrypt(cipher, a, b, mod, space=0):
             plainText += l
             continue
         
-        #This is where the magic happens
-        a_inv = nl.findMultInv(a,mod)
-        plain = ((ord(l) - 65) - b)
-        plain = plain * a_inv
-        plainLetter = int(plain % 26)
-        
-        plainText += chr(plainLetter + 65)
-
+        temp = "P"
+        plain = ((ord(l) - 65) - b) * a_inv
+        plain = plain % 26
+        plainText += _alphabet[plain]
+    
     return plainText
 
 
 def printStats(counts, freq, total):
-
     print("     ", ''.join(['{:6}'.format(item) for item in _alphabet]), sep="")
     print(''.join(['{:6}'.format(item) for item in counts]))
     print(''.join(['{:6}'.format(item) for item in freq]))
